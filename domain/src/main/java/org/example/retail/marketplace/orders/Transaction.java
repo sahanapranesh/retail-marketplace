@@ -1,11 +1,22 @@
 package org.example.retail.marketplace.orders;
 
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 public class Transaction {
-    private int transactionId;
-    private int paymentModeId;
-    private int orderId;
+    private double transactionId;
+    private double paymentModeId;
+    private double orderId;
     private PaymentStatus paymentStatus;
+
+    public Transaction(double paymentModeId, double orderId) {
+        this.paymentModeId = paymentModeId;
+        this.orderId = orderId;
+        this.transactionId =  Math.random();
+        paymentStatus = PaymentStatus.PAYMENT_INITIATED;
+    }
+
+    public void updatePaymentStatus(PaymentStatus paymentStatus){
+        this.paymentStatus =  paymentStatus;
+    }
 }

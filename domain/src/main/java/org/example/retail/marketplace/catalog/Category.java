@@ -1,12 +1,19 @@
 package org.example.retail.marketplace.catalog;
 
-import lombok.Builder;
 import lombok.Getter;
 
-@Builder
 @Getter
 public class Category {
     private double categoryId;
     private String name;
     private String description;
+
+    public Category(String name) {
+        this.categoryId = Math.random();
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }
