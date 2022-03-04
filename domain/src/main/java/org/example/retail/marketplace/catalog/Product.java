@@ -12,7 +12,6 @@ public class Product {
     private String name;
     private String description;
     private double categoryId;
-    private double sellerId;
     private BigDecimal cost;
     private double inventoryId;
 }
