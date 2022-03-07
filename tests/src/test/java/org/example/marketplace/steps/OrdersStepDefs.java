@@ -41,7 +41,7 @@ public class OrdersStepDefs {
 
     @And("place an order")
     public void placeAnOrder() {
-        order = new Order(customer.getCustomerId(), customer.getAddresses().get(0).getAddressId(),
+        order = new Order(customer.getCustomerId(),
                 shoppingCart.getShoppingCartId(), BigDecimal.valueOf(100));
     }
 
@@ -67,5 +67,29 @@ public class OrdersStepDefs {
         transaction.updatePaymentStatus(PaymentStatus.PAYMENT_DECLINED);
         //Publish a domain event saying transaction declined - Orders will be updated
         order.updateOrderStatus(OrderStatus.PAYMENT_PENDING);
+    }
+
+    @And("I remove {int} units of {string} from my shopping cart")
+    public void iRemoveUnitsOfFromMyShoppingCart(int arg0, String arg1) {
+        int existingQuantity = shoppingCart.getProducts().get(0).getQuantity();
+        int finalQuantity = existingQuantity - arg0;
+        shoppingCart.getProducts().get(0).setQuantity(finalQuantity);
+    }
+
+    @And("the quantity of items ordered should be {int}")
+    public void theQuantityOfItemsOrderedShouldBe(int finalQuantity) {
+        assertEquals(shoppingCart.getProducts().get(0).getQuantity(), finalQuantity);
+    }
+
+    @And("I cancel the order")
+    public void iCancelTheOrder() {
+        order.updateOrderStatus(OrderStatus.CANCELLED);
+        //Publish a domain event saying order cancelled - initiate refund
+        transaction.updatePaymentStatus(PaymentStatus.REFUND_PROCESSED);
+    }
+
+    @And("I should receive a refund of the order amount")
+    public void iShouldReceiveARefundOfTheOrderAmount() {
+
     }
 }

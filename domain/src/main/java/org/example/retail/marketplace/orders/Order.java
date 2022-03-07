@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 public class Order {
     private double orderId;
     private double customerId;
-    private double addressId;
     private double shoppingCartId;
     private BigDecimal totalCost;
     private LocalDateTime placedAt;
@@ -17,9 +16,8 @@ public class Order {
     private LocalDateTime deliveredAt;
     private OrderStatus orderStatus;
 
-    public Order(double customerId, double addressId, double shoppingCartId, BigDecimal totalCost) {
+    public Order(double customerId, double shoppingCartId, BigDecimal totalCost) {
         this.customerId = customerId;
-        this.addressId = addressId;
         this.shoppingCartId = shoppingCartId;
         this.totalCost = totalCost;
         this.orderId = Math.random();

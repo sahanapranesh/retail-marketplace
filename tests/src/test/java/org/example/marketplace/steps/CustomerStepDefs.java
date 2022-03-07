@@ -11,7 +11,6 @@ import org.example.retail.marketplace.customer.Customer;
 import org.example.retail.marketplace.customer.PaymentMode;
 
 import java.math.BigDecimal;
-import java.util.Collections;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;

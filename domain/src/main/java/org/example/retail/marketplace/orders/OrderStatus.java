@@ -11,7 +11,9 @@ public enum OrderStatus {
     DELIVERY_IN_PROGRESS(5),
     DELIVERED(6),
     RETURN_REQUEST_PLACED(7),
-    RETURN_COMPLETE(8);
+    RETURN_COMPLETE(8),
+    CANCELLED(9);
+
 
     private int id;
 
