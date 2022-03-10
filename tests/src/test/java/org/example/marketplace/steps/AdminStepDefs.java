@@ -4,8 +4,8 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.example.retail.marketplace.delivery.entities.DeliveryPartner;
-import org.example.retail.marketplace.delivery.entities.PickupStore;
+import org.example.retail.marketplace.delivery.DeliveryPartner;
+import org.example.retail.marketplace.delivery.PickupStore;
 
 import static org.junit.Assert.assertNotNull;
 

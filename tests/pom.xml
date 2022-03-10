@@ -25,12 +25,25 @@
        </dependency>
        <dependency>
            <groupId>org.example</groupId>
-           <artifactId>domain</artifactId>
+           <artifactId>order-management</artifactId>
            <version>1.0-SNAPSHOT</version>
+           <scope>test</scope>
        </dependency>
        <dependency>
            <groupId>org.example</groupId>
-           <artifactId>orders</artifactId>
+           <artifactId>user-service</artifactId>
+           <version>1.0-SNAPSHOT</version>
+           <scope>test</scope>
+       </dependency>
+       <dependency>
+           <groupId>org.example</groupId>
+           <artifactId>delivery-service</artifactId>
+           <version>1.0-SNAPSHOT</version>
+           <scope>test</scope>
+       </dependency>
+       <dependency>
+           <groupId>org.example</groupId>
+           <artifactId>catalog-service</artifactId>
            <version>1.0-SNAPSHOT</version>
            <scope>test</scope>
        </dependency>

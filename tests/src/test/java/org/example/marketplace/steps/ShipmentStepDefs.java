@@ -7,12 +7,12 @@ import io.cucumber.java.en.When;
 import org.example.retail.marketplace.entities.customer.Address;
 import org.example.retail.marketplace.entities.customer.Credentials;
 import org.example.retail.marketplace.entities.customer.Customer;
-import org.example.retail.marketplace.delivery.entities.Delivery;
-import org.example.retail.marketplace.delivery.entities.DeliveryStatus;
-import org.example.retail.marketplace.delivery.entities.DeliveryType;
-import org.example.retail.marketplace.delivery.entities.ElectronicDelivery;
-import org.example.retail.marketplace.delivery.entities.PreferredLocationDelivery;
-import org.example.retail.marketplace.delivery.entities.StorefrontDelivery;
+import org.example.retail.marketplace.delivery.Delivery;
+import org.example.retail.marketplace.delivery.DeliveryStatus;
+import org.example.retail.marketplace.delivery.DeliveryType;
+import org.example.retail.marketplace.delivery.ElectronicDelivery;
+import org.example.retail.marketplace.delivery.PreferredLocationDelivery;
+import org.example.retail.marketplace.delivery.StorefrontDelivery;
 import org.example.retail.marketplace.orders.entities.OrderAggregate;
 
 import java.math.BigDecimal;
@@ -34,12 +34,12 @@ public class ShipmentStepDefs {
 
     @When("I place an order")
     public void iPlaceAnOrder() {
-        orderAggregate = new OrderAggregate(customer.getCustomerId(), 1, BigDecimal.valueOf(45));
+        orderAggregate = new OrderAggregate(customer.getCustomerId(), "1", BigDecimal.valueOf(45));
     }
 
     @And("I select the {string} storefront to pick up my order")
     public void iSelectTheStorefrontToPickUpMyOrder(String storefrontName) {
-        deliveryType = new StorefrontDelivery(1);
+        deliveryType = new StorefrontDelivery("Store1");
         delivery = new Delivery(orderAggregate.getOrderId(), deliveryType.getDeliveryTypeId());
     }
 
@@ -50,13 +50,13 @@ public class ShipmentStepDefs {
 
     private void assertions() {
         assertEquals(delivery.getOrderId(), orderAggregate.getOrderId());
-        assertEquals(0, Double.compare(delivery.getDeliveryTypeId(), deliveryType.getDeliveryTypeId()));
+        assertEquals(delivery.getDeliveryTypeId(), deliveryType.getDeliveryTypeId());
         assertEquals(DeliveryStatus.SCHEDULED, delivery.getStatus());
     }
 
     @And("select my {string} address for delivery")
     public void selectMyAddressForDelivery(String address) {
-        deliveryType = new PreferredLocationDelivery(1);
+        deliveryType = new PreferredLocationDelivery("Address1");
         delivery = new Delivery(orderAggregate.getOrderId(), deliveryType.getDeliveryTypeId());
     }
 

@@ -2,4 +2,11 @@
 /tests/target/*
 /.idea/
 /orders/target/*
-
+/catalog-service/catalog-service.iml
+/order-management/order-management.iml
+/**/*.iml
+/*/target/*
+/catalog-service/target/*
+/delivery-service/target/*
+/order-management/target/*
+/user-service/target/*

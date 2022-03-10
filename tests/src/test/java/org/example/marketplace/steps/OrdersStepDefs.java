@@ -36,7 +36,7 @@ public class OrdersStepDefs {
 
     @And("make the payment")
     public void makeThePayment() {
-        transaction = new Transaction(1, orderAggregate.getOrderId());
+        transaction = new Transaction("1", orderAggregate.getOrderId());
     }
 
     @And("place an order")
@@ -63,7 +63,7 @@ public class OrdersStepDefs {
 
     @And("the payment fails")
     public void thePaymentFails() {
-        transaction = new Transaction(1, orderAggregate.getOrderId());
+        transaction = new Transaction("1", orderAggregate.getOrderId());
         transaction.updatePaymentStatus(PaymentStatus.PAYMENT_DECLINED);
         //Publish a domain event saying transaction declined - Orders will be updated
         orderAggregate.updateOrderStatus(OrderStatus.PAYMENT_PENDING);

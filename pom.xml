@@ -24,10 +24,12 @@
     </properties>
 
     <modules>
-        <module>domain</module>
+        <module>order-management</module>
+        <module>catalog-service</module>
+        <module>delivery-service</module>
+        <module>user-service</module>
         <module>tests</module>
         <module>docs</module>
-        <module>orders</module>
     </modules>
 
     <dependencyManagement>
