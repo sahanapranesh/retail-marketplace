@@ -5,10 +5,10 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.example.retail.marketplace.customer.Address;
-import org.example.retail.marketplace.customer.Credentials;
-import org.example.retail.marketplace.customer.Customer;
-import org.example.retail.marketplace.customer.PaymentMode;
+import org.example.retail.marketplace.entities.customer.Address;
+import org.example.retail.marketplace.entities.customer.Credentials;
+import org.example.retail.marketplace.entities.customer.Customer;
+import org.example.retail.marketplace.entities.customer.PaymentMode;
 
 import java.math.BigDecimal;
 

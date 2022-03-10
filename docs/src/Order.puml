@@ -1,0 +1,11 @@
+@startuml
+[OrderManagementService]
+[UserManagementService]
+[ShipmentService]
+[CatalogService]
+
+[OrderManagementService] --> [CatalogService]
+[ShipmentService] --> [UserManagementService]
+[ShipmentService] --> [CatalogService]
+
+@enduml

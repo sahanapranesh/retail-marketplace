@@ -4,16 +4,16 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.example.retail.marketplace.customer.Address;
-import org.example.retail.marketplace.customer.Credentials;
-import org.example.retail.marketplace.customer.Customer;
-import org.example.retail.marketplace.delivery.Delivery;
-import org.example.retail.marketplace.delivery.DeliveryStatus;
-import org.example.retail.marketplace.delivery.types.DeliveryType;
-import org.example.retail.marketplace.delivery.types.ElectronicDelivery;
-import org.example.retail.marketplace.delivery.types.PreferredLocationDelivery;
-import org.example.retail.marketplace.delivery.types.StorefrontDelivery;
-import org.example.retail.marketplace.orders.Order;
+import org.example.retail.marketplace.entities.customer.Address;
+import org.example.retail.marketplace.entities.customer.Credentials;
+import org.example.retail.marketplace.entities.customer.Customer;
+import org.example.retail.marketplace.delivery.entities.Delivery;
+import org.example.retail.marketplace.delivery.entities.DeliveryStatus;
+import org.example.retail.marketplace.delivery.entities.DeliveryType;
+import org.example.retail.marketplace.delivery.entities.ElectronicDelivery;
+import org.example.retail.marketplace.delivery.entities.PreferredLocationDelivery;
+import org.example.retail.marketplace.delivery.entities.StorefrontDelivery;
+import org.example.retail.marketplace.orders.entities.OrderAggregate;
 
 import java.math.BigDecimal;
 
@@ -21,7 +21,7 @@ import static org.junit.Assert.assertEquals;
 
 public class ShipmentStepDefs {
     private Customer customer;
-    private Order order;
+    private OrderAggregate orderAggregate;
     private DeliveryType deliveryType;
     private Delivery delivery;
 
@@ -34,13 +34,13 @@ public class ShipmentStepDefs {
 
     @When("I place an order")
     public void iPlaceAnOrder() {
-        order = new Order(customer.getCustomerId(), 1, BigDecimal.valueOf(45));
+        orderAggregate = new OrderAggregate(customer.getCustomerId(), 1, BigDecimal.valueOf(45));
     }
 
     @And("I select the {string} storefront to pick up my order")
     public void iSelectTheStorefrontToPickUpMyOrder(String storefrontName) {
         deliveryType = new StorefrontDelivery(1);
-        delivery = new Delivery(order.getOrderId(), deliveryType.getDeliveryTypeId());
+        delivery = new Delivery(orderAggregate.getOrderId(), deliveryType.getDeliveryTypeId());
     }
 
     @Then("I should be able to receive the order at the store")
@@ -49,7 +49,7 @@ public class ShipmentStepDefs {
     }
 
     private void assertions() {
-        assertEquals(0, Double.compare(delivery.getOrderId(), order.getOrderId()));
+        assertEquals(delivery.getOrderId(), orderAggregate.getOrderId());
         assertEquals(0, Double.compare(delivery.getDeliveryTypeId(), deliveryType.getDeliveryTypeId()));
         assertEquals(DeliveryStatus.SCHEDULED, delivery.getStatus());
     }
@@ -57,7 +57,7 @@ public class ShipmentStepDefs {
     @And("select my {string} address for delivery")
     public void selectMyAddressForDelivery(String address) {
         deliveryType = new PreferredLocationDelivery(1);
-        delivery = new Delivery(order.getOrderId(), deliveryType.getDeliveryTypeId());
+        delivery = new Delivery(orderAggregate.getOrderId(), deliveryType.getDeliveryTypeId());
     }
 
     @Then("the order should be delivered at my preferred address")
@@ -68,7 +68,7 @@ public class ShipmentStepDefs {
     @And("choose to receive the order over my email address")
     public void chooseToReceiveTheOrderOverMyEmailAddress() {
         deliveryType = new ElectronicDelivery("sahakl.24@jjjjj.com");
-        delivery = new Delivery(order.getOrderId(), deliveryType.getDeliveryTypeId());
+        delivery = new Delivery(orderAggregate.getOrderId(), deliveryType.getDeliveryTypeId());
     }
 
     @Then("the order should be delivered successfully")

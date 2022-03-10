@@ -1,2 +1,5 @@
 /domain/target/*
 /tests/target/*
+/.idea/
+/orders/target/*
+

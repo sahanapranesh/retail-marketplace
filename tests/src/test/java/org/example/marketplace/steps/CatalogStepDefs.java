@@ -4,10 +4,10 @@ import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.example.retail.marketplace.catalog.Catalog;
-import org.example.retail.marketplace.catalog.Category;
-import org.example.retail.marketplace.catalog.Inventory;
-import org.example.retail.marketplace.catalog.Product;
+import org.example.retail.marketplace.entities.catalog.Catalog;
+import org.example.retail.marketplace.entities.catalog.Category;
+import org.example.retail.marketplace.entities.catalog.Inventory;
+import org.example.retail.marketplace.entities.catalog.Product;
 
 import java.math.BigDecimal;
 

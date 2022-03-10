@@ -4,10 +4,10 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.example.retail.marketplace.customer.Address;
-import org.example.retail.marketplace.customer.Credentials;
-import org.example.retail.marketplace.customer.Customer;
-import org.example.retail.marketplace.orders.*;
+import org.example.retail.marketplace.entities.customer.Address;
+import org.example.retail.marketplace.entities.customer.Credentials;
+import org.example.retail.marketplace.entities.customer.Customer;
+import org.example.retail.marketplace.orders.entities.*;
 
 import java.math.BigDecimal;
 
@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 public class OrdersStepDefs {
     private Customer customer;
     private ShoppingCart shoppingCart;
-    private Order order;
+    private OrderAggregate orderAggregate;
     private Transaction transaction;
 
     @Given("I am an existing customer")
@@ -36,37 +36,37 @@ public class OrdersStepDefs {
 
     @And("make the payment")
     public void makeThePayment() {
-        transaction = new Transaction(1, order.getOrderId());
+        transaction = new Transaction(1, orderAggregate.getOrderId());
     }
 
     @And("place an order")
     public void placeAnOrder() {
-        order = new Order(customer.getCustomerId(),
+        orderAggregate = new OrderAggregate(customer.getCustomerId(),
                 shoppingCart.getShoppingCartId(), BigDecimal.valueOf(100));
     }
 
     @Then("the order must be successfully created")
     public void theOrderMustBeSuccessfullyCreated() {
-        assertNotNull(order);
+        assertNotNull(orderAggregate);
     }
 
     @And("I must be given an estimated delivery date")
     public void iMustBeGivenAnEstimatedDeliveryDate() {
-        assertNotNull(order.getEstimatedDeliveryDate());
+        assertNotNull(orderAggregate.getEstimatedDeliveryDate());
     }
 
     @Then("the order status must be {string}")
     public void theOrderStatusMustBe(String status) {
-        assertNotNull(order);
-        assertEquals(order.getOrderStatus(), OrderStatus.valueOf(status));
+        assertNotNull(orderAggregate);
+        assertEquals(orderAggregate.getOrderStatus(), OrderStatus.valueOf(status));
     }
 
     @And("the payment fails")
     public void thePaymentFails() {
-        transaction = new Transaction(1, order.getOrderId());
+        transaction = new Transaction(1, orderAggregate.getOrderId());
         transaction.updatePaymentStatus(PaymentStatus.PAYMENT_DECLINED);
         //Publish a domain event saying transaction declined - Orders will be updated
-        order.updateOrderStatus(OrderStatus.PAYMENT_PENDING);
+        orderAggregate.updateOrderStatus(OrderStatus.PAYMENT_PENDING);
     }
 
     @And("I remove {int} units of {string} from my shopping cart")
@@ -83,7 +83,7 @@ public class OrdersStepDefs {
 
     @And("I cancel the order")
     public void iCancelTheOrder() {
-        order.updateOrderStatus(OrderStatus.CANCELLED);
+        orderAggregate.updateOrderStatus(OrderStatus.CANCELLED);
         //Publish a domain event saying order cancelled - initiate refund
         transaction.updatePaymentStatus(PaymentStatus.REFUND_PROCESSED);
     }
